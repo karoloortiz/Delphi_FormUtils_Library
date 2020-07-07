@@ -14,6 +14,7 @@ type
   TJSONExtraDescription = record
     description: string;
     hint: string;
+    function getEmptyRecord: TJSONExtraDescription;
   end;
 
   TJSONSlide = record
@@ -22,6 +23,7 @@ type
     imgAsResource: boolean;
     imgName: string;
     extraDescription: TJSONExtraDescription;
+    function setEmpty: TJSONSlide;
   end;
 
   TJSONPresentationSchema = record
@@ -33,7 +35,7 @@ type
   TSlide = record
     title: string;
     subTitle: string;
-    PNGImg: TPngImage;
+    img: TdxSmartImage;
     extraDescriptionEnabled: boolean;
     extraDescription: string;
     extraDescriptionHintEnabled: boolean;
@@ -104,9 +106,8 @@ type
     procedure setColorButtonNext;
     procedure setColorButtonEnd;
     procedure setWhiteAsSecondColor;
-    procedure setSpacersDimensions;
+    procedure setVerticalSpacersDimensions;
   public
-    //        constructor Create(AOwner: TComponent); overload; override;
     constructor Create(AOwner: TComponent; resourceJSONName: string); reintroduce; overload;
   end;
 
@@ -121,6 +122,23 @@ implementation
 uses
   KLib.Graphics, KLib.Utils, System.JSON;
 
+function TJSONExtraDescription.getEmptyRecord: TJSONExtraDescription;
+begin
+  self.description := '';
+  self.hint := '';
+  result := self;
+end;
+
+function TJSONSlide.setEmpty: TJSONSlide;
+begin
+  self.title := '';
+  self.subTitle := '';
+  self.imgAsResource := true;
+  self.imgName := '';
+  self.extraDescription.getEmptyRecord;
+  result := self;
+end;
+
 constructor TPresentation.Create(AOwner: TComponent; resourceJSONName: string);
 begin
   Self.resourceJSONName := resourceJSONName;
@@ -129,7 +147,7 @@ end;
 
 procedure TPresentation.FormCreate(Sender: TObject);
 begin
-  setSpacersDimensions;
+  setVerticalSpacersDimensions;
   setComponentInMiddlePosition(pnl_buttons);
   loadJSONResource;
   mainColorRGB := JSONPresentationSchema.mainColorRGB;
@@ -201,7 +219,7 @@ begin
   begin
     lbl_title.Caption := title;
     lbl_subtitle.Caption := subTitle;
-    img_body.Picture.Graphic := PNGImg;
+    img_body.Picture.Graphic := img;
     lbl_extraDescription.Visible := extraDescriptionEnabled;
     lbl_extraDescription.Caption := extraDescription;
     _spacer__extraDescription_left.Visible := extraDescriptionHintEnabled;
@@ -224,7 +242,6 @@ var
   _slides: TJSONArray;
   slide: TJSONSlide;
   _slide: TJSONObject;
-  extraDescription: TJSONExtraDescription;
   _extraDescription: TJSONObject;
   i: integer;
 begin
@@ -245,16 +262,13 @@ begin
     SetLength(JSONPresentationSchema.slides, _slides.Count);
     for i := 0 to _slides.Count - 1 do
     begin
+      slide.setEmpty;
       _slide := _slides.Items[i] as TJSONObject;
       with slide do
       begin
         if not _slide.TryGetValue('title', title) then
         begin
           raise Exception.Create('title not present in slide ' + IntToStr(i + 1) + ' of JSON');
-        end;
-        if not _slide.TryGetValue('subTitle', subTitle) then
-        begin
-          raise Exception.Create('subTitle not present in slide ' + IntToStr(i + 1) + ' of JSON');
         end;
         if not _slide.TryGetValue('imgAsResource', imgAsResource) then
         begin
@@ -264,18 +278,17 @@ begin
         begin
           raise Exception.Create('imgName not present in slide ' + IntToStr(i + 1) + ' of JSON');
         end;
+        _slide.TryGetValue('subTitle', subTitle);
       end;
 
       if _slide.TryGetValue('extraDescription', _extraDescription) then
       begin
-        with extraDescription do
+        with slide.extraDescription do
         begin
           _extraDescription.TryGetValue('description', description);
           _extraDescription.TryGetValue('hint', hint);
         end;
       end;
-      slide.extraDescription := extraDescription;
-
       JSONPresentationSchema.slides[i] := slide;
     end;
   end
@@ -313,15 +326,17 @@ begin
     begin
       title := JSONPresentationSchema.slides[i].title;
       subTitle := JSONPresentationSchema.slides[i].subTitle;
+
+      img := TdxSmartImage.Create;
       if JSONPresentationSchema.slides[i].imgAsResource then
       begin
-        PNGImg := getPNGResource(JSONPresentationSchema.slides[i].imgName);
+        img.LoadFromResource(HInstance, pchar(JSONPresentationSchema.slides[i].imgName), pchar('PNG'));
       end
       else
       begin
-        PNGImg := TPngImage.Create;
-        PNGImg.LoadFromFile(JSONPresentationSchema.slides[i].imgName);
+        img.LoadFromFile(JSONPresentationSchema.slides[i].imgName);
       end;
+
       extraDescription := JSONPresentationSchema.slides[i].extraDescription.description;
       extraDescriptionHint := JSONPresentationSchema.slides[i].extraDescription.hint;
       if (extraDescription <> '') then
@@ -379,14 +394,10 @@ begin
   lbl_button_end.Font.Color := _color;
 end;
 
-procedure TPresentation.setSpacersDimensions;
+procedure TPresentation.setVerticalSpacersDimensions;
 begin
-  _spacer_image_bottom.Height := _spacer_image_top.Height;
   _spacer_image_right.Width := _spacer_image_left.Width;
-
-  _spacer_extraDescription_bottom.Height := _spacer_extraDescription_upper.Height;
   _spacer_extraDescription_right.Width := _spacer_extraDescription_left.Width;
-
   _spacer__extraDescription_left.Width := img_extraDescription_info.Width;
 end;
 
