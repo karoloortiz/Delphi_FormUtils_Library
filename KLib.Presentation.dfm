@@ -3,7 +3,7 @@ object Presentation: TPresentation
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'Presentation'
-  ClientHeight = 695
+  ClientHeight = 693
   ClientWidth = 817
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
@@ -13,169 +13,101 @@ object Presentation: TPresentation
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  ShowHint = True
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnl_head: TPanel
     Left = 0
     Top = 0
     Width = 817
-    Height = 116
+    Height = 136
     Align = alTop
-    AutoSize = True
+    Color = clHighlight
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 645
     object lbl_subtitle: TRzLabel
       Left = 1
-      Top = 59
+      Top = 83
       Width = 815
       Height = 23
       Align = alTop
       Alignment = taCenter
       Caption = '(subtitle)'
-      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -19
       Font.Name = 'Roboto'
       Font.Style = []
-      ParentColor = False
       ParentFont = False
       BorderSides = []
       ExplicitWidth = 76
     end
     object lbl_title: TRzLabel
       Left = 1
-      Top = 16
+      Top = 26
       Width = 815
-      Height = 33
+      Height = 42
       Align = alTop
       Alignment = taCenter
       Caption = 'Title'
-      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -27
+      Font.Height = -35
       Font.Name = 'Roboto'
       Font.Style = [fsBold]
-      ParentColor = False
       ParentFont = False
       BorderSides = []
       FlatColor = clMaroon
-      ExplicitWidth = 52
+      ExplicitWidth = 68
     end
     object _spacer_head_top: TRzSpacer
       Left = 1
       Top = 1
       Width = 815
-      Height = 15
       Align = alTop
-      ExplicitWidth = 643
     end
     object _spacer_head_titleSubtitle: TRzSpacer
       Left = 1
-      Top = 49
+      Top = 68
       Width = 815
-      Height = 10
+      Height = 15
       Align = alTop
-      ExplicitTop = 60
-      ExplicitWidth = 633
+      ExplicitTop = 65
     end
     object _spacer_hed_bottom: TRzSpacer
       Left = 1
-      Top = 105
+      Top = 120
       Width = 815
-      Height = 10
+      Height = 15
       Align = alBottom
-      ExplicitTop = 66
-      ExplicitWidth = 633
+      ExplicitTop = 135
     end
   end
   object pnl_bottom: TPanel
     Left = 0
-    Top = 604
+    Top = 602
     Width = 817
     Height = 91
     Align = alBottom
+    Color = clActiveCaption
+    ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 620
     object pnl_buttons: TPanel
       Left = 85
       Top = 10
       Width = 656
       Height = 66
       BevelOuter = bvNone
-      Color = clWhite
+      ParentColor = True
       TabOrder = 0
-      object _pnl_button_back: TPanel
-        Left = 0
-        Top = 0
-        Width = 226
-        Height = 66
-        Align = alLeft
-        BevelOuter = bvNone
-        Color = clWhite
-        TabOrder = 0
-        ExplicitTop = 5
-        object _shape_button_back: TShape
-          Left = 10
-          Top = 1
-          Width = 206
-          Height = 61
-          Cursor = crHandPoint
-        end
-        object button_img_back: TImage
-          Left = 10
-          Top = 0
-          Width = 206
-          Height = 61
-          Cursor = crHandPoint
-          Center = True
-          Picture.Data = {
-            0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000024
-            000000240806000000E10098980000005D494441547801EDCE310D80500C00D1
-            1BF0FB25FC0101158230042000962A8092147297DCFEF8486636F23698331F6D
-            30F9D60DB3FC0D23468C9803588159F0234CFD378AD74105A81D984553850AAA
-            12559F2851A2822645DE3E33BB00823F932358D0D44C0000000049454E44AE42
-            6082}
-        end
-      end
-      object _pnl_button_next: TPanel
-        Left = 430
-        Top = 0
-        Width = 226
-        Height = 66
-        Align = alRight
-        BevelOuter = bvNone
-        Color = clWhite
-        TabOrder = 1
-        ExplicitTop = 10
-        object _shape_button_next: TShape
-          Left = 15
-          Top = 6
-          Width = 206
-          Height = 61
-          Cursor = crHandPoint
-          Brush.Color = clHotLight
-          Pen.Color = clHotLight
-        end
-        object button_img_next: TImage
-          Left = 15
-          Top = 5
-          Width = 206
-          Height = 61
-          Cursor = crHandPoint
-          Center = True
-          Picture.Data = {
-            0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000024
-            000000240806000000E100989800000066494441547801EDD5A10D80500C0661
-            04925D3B0202896010C6602424E2904F6081167297D47F49C5DFD91732030288
-            3A985664637A6003A8841A7E8112254A1430DE703370DC82E2D9A21A68C97AD9
-            04EC574CDECEAD62C48811F32EA861D2510D6366B53B0199A7F73934D6CDCD00
-            00000049454E44AE426082}
-          Proportional = True
-        end
-      end
       object _pnl_countSlide: TPanel
         Left = 226
         Top = 0
@@ -183,12 +115,8 @@ object Presentation: TPresentation
         Height = 66
         Align = alClient
         BevelOuter = bvNone
-        Color = clWhite
-        TabOrder = 2
-        ExplicitLeft = 225
-        ExplicitTop = -10
-        ExplicitWidth = 116
-        ExplicitHeight = 76
+        ParentColor = True
+        TabOrder = 0
         object lbl_countSlide: TRzLabel
           Left = 0
           Top = 0
@@ -203,32 +131,159 @@ object Presentation: TPresentation
           Font.Name = 'Roboto'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitTop = 15
+          ExplicitWidth = 32
+          ExplicitHeight = 50
+        end
+      end
+      object _pnl_box_button_back: TPanel
+        Left = 0
+        Top = 0
+        Width = 226
+        Height = 66
+        Align = alLeft
+        BevelOuter = bvNone
+        Color = clWhite
+        TabOrder = 1
+        object pnl_button_back: TPanel
+          Left = 0
+          Top = 0
+          Width = 226
+          Height = 66
+          Align = alClient
+          BevelOuter = bvNone
+          Color = clWhite
+          TabOrder = 0
+          object _shape_button_back: TShape
+            Left = 10
+            Top = 1
+            Width = 206
+            Height = 61
+            Cursor = crHandPoint
+          end
+          object button_img_back: TImage
+            Left = 10
+            Top = 0
+            Width = 206
+            Height = 61
+            Cursor = crHandPoint
+            Center = True
+            Picture.Data = {
+              0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000024
+              000000240806000000E10098980000005D494441547801EDCE310D80500C00D1
+              1BF0FB25FC0101158230042000962A8092147297DCFEF8486636F23698331F6D
+              30F9D60DB3FC0D23468C9803588159F0234CFD378AD74105A81D984553850AAA
+              12559F2851A2822645DE3E33BB00823F932358D0D44C0000000049454E44AE42
+              6082}
+            OnClick = button_img_backClick
+          end
+        end
+      end
+      object _pnl_box_button_next: TPanel
+        Left = 430
+        Top = 0
+        Width = 226
+        Height = 66
+        Align = alRight
+        BevelOuter = bvNone
+        Color = clWhite
+        TabOrder = 2
+        object pnl_button_next: TPanel
+          Left = 0
+          Top = 0
+          Width = 226
+          Height = 66
+          Align = alClient
+          BevelOuter = bvNone
+          Color = clWhite
+          TabOrder = 0
+          object _shape_button_next: TShape
+            Left = 15
+            Top = 6
+            Width = 206
+            Height = 61
+            Cursor = crHandPoint
+            Brush.Color = clHotLight
+            Pen.Color = clHotLight
+          end
+          object button_img_next: TImage
+            Left = 15
+            Top = 5
+            Width = 206
+            Height = 61
+            Cursor = crHandPoint
+            Center = True
+            Picture.Data = {
+              0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000024
+              000000240806000000E100989800000066494441547801EDD5A10D80500C0661
+              04925D3B0202896010C6602424E2904F6081167297D47F49C5DFD91732030288
+              3A985664637A6003A8841A7E8112254A1430DE703370DC82E2D9A21A68C97AD9
+              04EC574CDECEAD62C48811F32EA861D2510D6366B53B0199A7F73934D6CDCD00
+              00000049454E44AE426082}
+            Proportional = True
+            OnClick = button_img_nextClick
+          end
+        end
+        object pnl_button_end: TPanel
+          Left = 0
+          Top = 0
+          Width = 226
+          Height = 66
+          Align = alClient
+          BevelOuter = bvNone
+          Color = clWhite
+          TabOrder = 1
+          object _shape_button_end: TShape
+            Left = 15
+            Top = 6
+            Width = 206
+            Height = 61
+            Cursor = crHandPoint
+            Brush.Color = clHotLight
+            Pen.Color = clHotLight
+          end
+          object lbl_button_end: TRzLabel
+            Left = 15
+            Top = 23
+            Width = 206
+            Height = 36
+            Cursor = crHandPoint
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'End'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -21
+            Font.Name = 'Roboto'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            OnClick = lbl_button_endClick
+          end
         end
       end
     end
   end
   object pnl_body: TPanel
     Left = 0
-    Top = 116
+    Top = 136
     Width = 817
-    Height = 488
+    Height = 466
     Align = alClient
     AutoSize = True
+    Color = clYellow
+    ParentBackground = False
     TabOrder = 2
-    ExplicitWidth = 645
-    ExplicitHeight = 367
     object pnl_image: TPanel
       Left = 1
       Top = 1
       Width = 815
-      Height = 440
-      Align = alTop
+      Height = 419
+      Align = alClient
       BevelOuter = bvNone
       TabOrder = 0
       object _spacer_image_bottom: TRzSpacer
         Left = 0
-        Top = 415
+        Top = 394
         Width = 815
         Align = alBottom
         ExplicitLeft = 26
@@ -248,7 +303,7 @@ object Presentation: TPresentation
         Left = 0
         Top = 25
         Width = 10
-        Height = 390
+        Height = 369
         Orientation = orVertical
         Align = alLeft
         ExplicitLeft = 1
@@ -259,7 +314,7 @@ object Presentation: TPresentation
         Left = 805
         Top = 25
         Width = 10
-        Height = 390
+        Height = 369
         Orientation = orVertical
         Align = alRight
         ExplicitLeft = 631
@@ -269,7 +324,7 @@ object Presentation: TPresentation
         Left = 10
         Top = 25
         Width = 795
-        Height = 390
+        Height = 369
         Align = alClient
         Center = True
         Picture.Data = {
@@ -4611,15 +4666,16 @@ object Presentation: TPresentation
         ExplicitHeight = 105
       end
     end
-    object pnl_description: TPanel
+    object pnl_extraDescription: TPanel
       Left = 1
-      Top = 441
+      Top = 420
       Width = 815
       Height = 45
-      Align = alTop
+      Align = alBottom
       BevelOuter = bvNone
+      ParentColor = True
       TabOrder = 1
-      object _spacer_description_left: TRzSpacer
+      object _spacer_extraDescription_left: TRzSpacer
         Left = 0
         Top = 11
         Width = 135
@@ -4628,7 +4684,7 @@ object Presentation: TPresentation
         Align = alLeft
         ExplicitHeight = 24
       end
-      object _spacer_description_right: TRzSpacer
+      object _spacer_extraDescription_right: TRzSpacer
         Left = 680
         Top = 11
         Width = 135
@@ -4638,7 +4694,7 @@ object Presentation: TPresentation
         ExplicitLeft = 755
         ExplicitHeight = 24
       end
-      object _spacer_description_upper: TRzSpacer
+      object _spacer_extraDescription_upper: TRzSpacer
         Left = 0
         Top = 0
         Width = 815
@@ -4646,7 +4702,7 @@ object Presentation: TPresentation
         Align = alTop
         ExplicitWidth = 643
       end
-      object _spacer_decription_bottom: TRzSpacer
+      object _spacer_extraDescription_bottom: TRzSpacer
         Left = 0
         Top = 34
         Width = 815
@@ -4654,7 +4710,7 @@ object Presentation: TPresentation
         Align = alBottom
         ExplicitTop = 5
       end
-      object _pnl_description: TPanel
+      object _pnl_extraDescription: TPanel
         Left = 135
         Top = 11
         Width = 545
@@ -4662,16 +4718,17 @@ object Presentation: TPresentation
         Align = alClient
         AutoSize = True
         BevelOuter = bvNone
+        ParentColor = True
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 0
-        ExplicitLeft = 60
-        ExplicitWidth = 523
-        ExplicitHeight = 24
-        object img_description_info: TImage
+        object img_extraDescription_info: TImage
           Left = 513
           Top = 0
           Width = 32
           Height = 23
           Align = alRight
+          ParentShowHint = False
           Picture.Data = {
             0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000020
             000000200806000000737A7AF40000001974455874536F667477617265004164
@@ -4685,30 +4742,28 @@ object Presentation: TPresentation
             29B7A10716E2A73C8A5F482080D47FC7DA0389FE48A63F94EA8FE5FA179379AE
             66FFDBF1133FB4970A6D7EA48C0000000049454E44AE426082}
           Proportional = True
+          ShowHint = True
           ExplicitLeft = 525
           ExplicitTop = 11
           ExplicitHeight = 24
         end
-        object lbl_description: TRzLabel
+        object lbl_extraDescription: TRzLabel
           Left = 32
           Top = 0
           Width = 481
           Height = 23
           Align = alClient
           Alignment = taCenter
-          Caption = 'Description'
-          Color = clWhite
+          Caption = 'Extra Description'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -17
+          Font.Height = -19
           Font.Name = 'Roboto'
           Font.Style = [fsBold]
-          ParentColor = False
           ParentFont = False
-          ExplicitWidth = 90
-          ExplicitHeight = 20
+          ExplicitWidth = 150
         end
-        object _spacer__description_left: TRzSpacer
+        object _spacer__extraDescription_left: TRzSpacer
           Left = 0
           Top = 0
           Width = 32
