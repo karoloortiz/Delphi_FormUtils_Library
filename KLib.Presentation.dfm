@@ -4996,15 +4996,12 @@ object Presentation: TPresentation
         ParentShowHint = False
         ShowHint = True
         TabOrder = 0
-        ExplicitLeft = 135
-        ExplicitTop = 11
-        ExplicitWidth = 545
-        ExplicitHeight = 23
         object img_extraDescription_info: TImage
           Left = 583
           Top = 0
           Width = 32
           Height = 35
+          CustomHint = balloonHint
           Align = alRight
           ParentShowHint = False
           Picture.Data = {
@@ -5055,5 +5052,12 @@ object Presentation: TPresentation
         end
       end
     end
+  end
+  object balloonHint: TBalloonHint
+    Style = bhsStandard
+    Delay = 0
+    HideAfter = 15000
+    Left = 645
+    Top = 481
   end
 end

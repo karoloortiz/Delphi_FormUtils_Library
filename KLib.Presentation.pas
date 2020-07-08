@@ -80,6 +80,7 @@ type
     pnl_button_end: TPanel;
     _shape_button_end: TShape;
     lbl_button_end: TRzLabel;
+    balloonHint: TBalloonHint;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure button_img_nextClick(Sender: TObject);
