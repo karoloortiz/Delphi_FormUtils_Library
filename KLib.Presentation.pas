@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, RzLabel,
-  RzPanel, dxGDIPlusClasses, PngImage;
+  RzPanel, dxGDIPlusClasses, PngImage,
+  KLib.Types;
 
 const
   TYPE_PRESENTATION_RESOURCE = 'JSON';
@@ -87,6 +88,7 @@ type
     procedure button_img_backClick(Sender: TObject);
     procedure lbl_button_endClick(Sender: TObject);
   private
+    callBackProcedure: TProcedureOfObject;
     resourceJSONName: string;
     JSONPresentationSchema: TJSONPresentationSchema;
     mainColorRGB: string;
@@ -108,8 +110,9 @@ type
     procedure setColorButtonEnd;
     procedure setWhiteAsSecondColor;
     procedure setVerticalSpacersDimensions;
+    procedure myClose;
   public
-    constructor Create(AOwner: TComponent; resourceJSONName: string); reintroduce; overload;
+    constructor Create(AOwner: TComponent; resourceJSONName: string; callBackProcedure: TProcedureOfObject = nil); reintroduce; overload;
   end;
 
 var
@@ -140,9 +143,11 @@ begin
   result := self;
 end;
 
-constructor TPresentation.Create(AOwner: TComponent; resourceJSONName: string);
+constructor TPresentation.Create(AOwner: TComponent; resourceJSONName: string;
+  callBackProcedure: TProcedureOfObject = nil);
 begin
   Self.resourceJSONName := resourceJSONName;
+  self.callBackProcedure := callBackProcedure;
   Create(AOwner);
 end;
 
@@ -311,7 +316,16 @@ end;
 
 procedure TPresentation.lbl_button_endClick(Sender: TObject);
 begin
-  ShowMessage('Fine');
+  myClose;
+end;
+
+procedure TPresentation.myClose;
+begin
+  if Assigned(callbackProcedure) then
+  begin
+    callbackProcedure;
+  end;
+  close;
 end;
 
 procedure TPresentation.createSlides;
@@ -373,13 +387,13 @@ end;
 
 procedure TPresentation.setColorButtonNext;
 begin
-  _shape_button_next.Brush.Color := getDarkerTColor(pnl_head.Color, 2);
+  _shape_button_next.Brush.Color := getDarkerTColor(pnl_head.Color, 1);
   _shape_button_next.Pen.Color := _shape_button_next.Brush.Color;
 end;
 
 procedure TPresentation.setColorButtonEnd;
 begin
-  _shape_button_end.Brush.Color := getDarkerTColor(pnl_head.Color, 2);
+  _shape_button_end.Brush.Color := getDarkerTColor(pnl_head.Color, 1);
   _shape_button_end.Pen.Color := _shape_button_end.Brush.Color;
 end;
 

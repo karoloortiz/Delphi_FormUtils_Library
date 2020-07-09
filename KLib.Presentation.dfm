@@ -35,38 +35,38 @@ object Presentation: TPresentation
     TabOrder = 0
     object lbl_subtitle: TRzLabel
       Left = 1
-      Top = 83
+      Top = 84
       Width = 815
-      Height = 23
+      Height = 35
       Align = alTop
       Alignment = taCenter
       Caption = '(subtitle)'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -19
+      Font.Height = -29
       Font.Name = 'Roboto'
-      Font.Style = []
+      Font.Style = [fsBold]
       ParentFont = False
       BorderSides = []
-      ExplicitWidth = 76
+      ExplicitWidth = 118
     end
     object lbl_title: TRzLabel
       Left = 1
       Top = 26
       Width = 815
-      Height = 42
+      Height = 43
       Align = alTop
       Alignment = taCenter
       Caption = 'Title'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -35
+      Font.Height = -36
       Font.Name = 'Roboto'
       Font.Style = [fsBold]
       ParentFont = False
       BorderSides = []
       FlatColor = clMaroon
-      ExplicitWidth = 68
+      ExplicitWidth = 73
     end
     object _spacer_head_top: TRzSpacer
       Left = 1
@@ -76,7 +76,7 @@ object Presentation: TPresentation
     end
     object _spacer_head_titleSubtitle: TRzSpacer
       Left = 1
-      Top = 68
+      Top = 69
       Width = 815
       Height = 15
       Align = alTop
