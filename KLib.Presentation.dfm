@@ -12,7 +12,7 @@ object Presentation: TPresentation
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poMainFormCenter
   ShowHint = True
   OnCreate = FormCreate
   OnShow = FormShow
