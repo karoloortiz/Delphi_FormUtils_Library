@@ -1,4 +1,4 @@
-unit KLib.Presentation;
+unit KLib.PresentationForm;
 
 interface
 

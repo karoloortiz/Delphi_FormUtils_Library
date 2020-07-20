@@ -36,7 +36,7 @@ object Presentation: TPresentation
     object lbl_subtitle: TRzLabel
       Left = 1
       Top = 84
-      Width = 815
+      Width = 118
       Height = 35
       Align = alTop
       Alignment = taCenter
@@ -48,12 +48,11 @@ object Presentation: TPresentation
       Font.Style = [fsBold]
       ParentFont = False
       BorderSides = []
-      ExplicitWidth = 118
     end
     object lbl_title: TRzLabel
       Left = 1
       Top = 26
-      Width = 815
+      Width = 73
       Height = 43
       Align = alTop
       Alignment = taCenter
@@ -66,7 +65,6 @@ object Presentation: TPresentation
       ParentFont = False
       BorderSides = []
       FlatColor = clMaroon
-      ExplicitWidth = 73
     end
     object _spacer_head_top: TRzSpacer
       Left = 1
@@ -120,8 +118,8 @@ object Presentation: TPresentation
         object lbl_countSlide: TRzLabel
           Left = 0
           Top = 0
-          Width = 204
-          Height = 66
+          Width = 32
+          Height = 50
           Align = alClient
           Alignment = taCenter
           Caption = #13'1/6'
@@ -131,8 +129,6 @@ object Presentation: TPresentation
           Font.Name = 'Roboto'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitWidth = 32
-          ExplicitHeight = 50
         end
       end
       object _pnl_box_button_back: TPanel
@@ -5025,8 +5021,8 @@ object Presentation: TPresentation
         object lbl_extraDescription: TRzLabel
           Left = 32
           Top = 0
-          Width = 551
-          Height = 35
+          Width = 183
+          Height = 29
           Align = alClient
           Alignment = taCenter
           Caption = 'Extra Description'
@@ -5036,8 +5032,6 @@ object Presentation: TPresentation
           Font.Name = 'Roboto'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitWidth = 183
-          ExplicitHeight = 29
         end
         object _spacer__extraDescription_left: TRzSpacer
           Left = 0
