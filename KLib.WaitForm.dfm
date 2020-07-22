@@ -16,10 +16,11 @@ object WaitForm: TWaitForm
   FormStyle = fsStayOnTop
   OldCreateOrder = False
   Position = poScreenCenter
+  StyleElements = []
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object lbl_title: TRzLabel
+  object lbl_title: TLabel
     Left = 0
     Top = 0
     Width = 414
@@ -33,6 +34,8 @@ object WaitForm: TWaitForm
     Font.Name = 'Roboto'
     Font.Style = [fsBold]
     ParentFont = False
+    Transparent = False
+    StyleElements = []
     ExplicitWidth = 76
   end
   object activityIndicator: TdxActivityIndicator

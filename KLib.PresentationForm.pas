@@ -44,9 +44,7 @@ type
   end;
 
   TPresentation = class(TForm)
-    lbl_title: TRzLabel;
     pnl_head: TPanel;
-    lbl_subtitle: TRzLabel;
     _spacer_head_top: TRzSpacer;
     _spacer_head_titleSubtitle: TRzSpacer;
     _spacer_hed_bottom: TRzSpacer;
@@ -59,7 +57,6 @@ type
     _spacer_image_right: TRzSpacer;
     img_body: TImage;
     pnl_extraDescription: TPanel;
-    lbl_extraDescription: TRzLabel;
     _spacer_extraDescription_left: TRzSpacer;
     _spacer_extraDescription_right: TRzSpacer;
     img_extraDescription_info: TImage;
@@ -71,7 +68,6 @@ type
     _shape_button_back: TShape;
     button_img_back: TImage;
     _pnl_countSlide: TPanel;
-    lbl_countSlide: TRzLabel;
     _spacer_extraDescription_bottom: TRzSpacer;
     _pnl_box_button_back: TPanel;
     _pnl_box_button_next: TPanel;
@@ -80,8 +76,12 @@ type
     button_img_next: TImage;
     pnl_button_end: TPanel;
     _shape_button_end: TShape;
-    lbl_button_end: TRzLabel;
     balloonHint: TBalloonHint;
+    lbl_subtitle: TLabel;
+    lbl_title: TLabel;
+    lbl_countSlide: TLabel;
+    lbl_button_end: TLabel;
+    lbl_extraDescription: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure button_img_nextClick(Sender: TObject);

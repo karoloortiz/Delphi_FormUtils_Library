@@ -16,7 +16,7 @@ const
 type
   TWaitForm = class(TForm)
     activityIndicator: TdxActivityIndicator;
-    lbl_title: TRzLabel;
+    lbl_title: TLabel;
     procedure FormShow(Sender: TObject);
   private
     e: Exception;

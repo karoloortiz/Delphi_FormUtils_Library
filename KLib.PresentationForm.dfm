@@ -14,6 +14,7 @@ object Presentation: TPresentation
   OldCreateOrder = False
   Position = poScreenCenter
   ShowHint = True
+  StyleElements = []
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
@@ -33,39 +34,7 @@ object Presentation: TPresentation
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    object lbl_subtitle: TRzLabel
-      Left = 1
-      Top = 84
-      Width = 118
-      Height = 35
-      Align = alTop
-      Alignment = taCenter
-      Caption = '(subtitle)'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -29
-      Font.Name = 'Roboto'
-      Font.Style = [fsBold]
-      ParentFont = False
-      BorderSides = []
-    end
-    object lbl_title: TRzLabel
-      Left = 1
-      Top = 26
-      Width = 73
-      Height = 43
-      Align = alTop
-      Alignment = taCenter
-      Caption = 'Title'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -36
-      Font.Name = 'Roboto'
-      Font.Style = [fsBold]
-      ParentFont = False
-      BorderSides = []
-      FlatColor = clMaroon
-    end
+    StyleElements = []
     object _spacer_head_top: TRzSpacer
       Left = 1
       Top = 1
@@ -88,6 +57,42 @@ object Presentation: TPresentation
       Align = alBottom
       ExplicitTop = 135
     end
+    object lbl_subtitle: TLabel
+      Left = 1
+      Top = 84
+      Width = 815
+      Height = 35
+      Align = alTop
+      Alignment = taCenter
+      Caption = '(subtitle)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -29
+      Font.Name = 'Roboto'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = False
+      StyleElements = []
+      ExplicitWidth = 118
+    end
+    object lbl_title: TLabel
+      Left = 1
+      Top = 26
+      Width = 815
+      Height = 43
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Title'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -36
+      Font.Name = 'Roboto'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = False
+      StyleElements = []
+      ExplicitWidth = 73
+    end
   end
   object pnl_bottom: TPanel
     Left = 0
@@ -98,6 +103,7 @@ object Presentation: TPresentation
     Color = clActiveCaption
     ParentBackground = False
     TabOrder = 1
+    StyleElements = []
     object pnl_buttons: TPanel
       Left = 85
       Top = 10
@@ -106,6 +112,7 @@ object Presentation: TPresentation
       BevelOuter = bvNone
       ParentColor = True
       TabOrder = 0
+      StyleElements = []
       object _pnl_countSlide: TPanel
         Left = 226
         Top = 0
@@ -115,11 +122,12 @@ object Presentation: TPresentation
         BevelOuter = bvNone
         ParentColor = True
         TabOrder = 0
-        object lbl_countSlide: TRzLabel
+        StyleElements = []
+        object lbl_countSlide: TLabel
           Left = 0
           Top = 0
-          Width = 32
-          Height = 50
+          Width = 204
+          Height = 66
           Align = alClient
           Alignment = taCenter
           Caption = #13'1/6'
@@ -129,6 +137,10 @@ object Presentation: TPresentation
           Font.Name = 'Roboto'
           Font.Style = [fsBold]
           ParentFont = False
+          Transparent = False
+          StyleElements = []
+          ExplicitWidth = 32
+          ExplicitHeight = 50
         end
       end
       object _pnl_box_button_back: TPanel
@@ -140,6 +152,7 @@ object Presentation: TPresentation
         BevelOuter = bvNone
         Color = clWhite
         TabOrder = 1
+        StyleElements = []
         object pnl_button_back: TPanel
           Left = 0
           Top = 0
@@ -183,6 +196,7 @@ object Presentation: TPresentation
         BevelOuter = bvNone
         Color = clWhite
         TabOrder = 2
+        StyleElements = []
         object pnl_button_next: TPanel
           Left = 0
           Top = 0
@@ -192,6 +206,7 @@ object Presentation: TPresentation
           BevelOuter = bvNone
           Color = clWhite
           TabOrder = 0
+          StyleElements = []
           object _shape_button_next: TShape
             Left = 15
             Top = 6
@@ -228,6 +243,7 @@ object Presentation: TPresentation
           BevelOuter = bvNone
           Color = clWhite
           TabOrder = 1
+          StyleElements = []
           object _shape_button_end: TShape
             Left = 15
             Top = 6
@@ -237,7 +253,7 @@ object Presentation: TPresentation
             Brush.Color = clHotLight
             Pen.Color = clHotLight
           end
-          object lbl_button_end: TRzLabel
+          object lbl_button_end: TLabel
             Left = 15
             Top = 23
             Width = 206
@@ -253,6 +269,7 @@ object Presentation: TPresentation
             Font.Style = [fsBold]
             ParentFont = False
             Transparent = True
+            StyleElements = []
             OnClick = lbl_button_endClick
           end
         end
@@ -269,6 +286,7 @@ object Presentation: TPresentation
     Color = clYellow
     ParentBackground = False
     TabOrder = 2
+    StyleElements = []
     object pnl_image: TPanel
       Left = 1
       Top = 1
@@ -276,7 +294,10 @@ object Presentation: TPresentation
       Height = 419
       Align = alClient
       BevelOuter = bvNone
+      Color = clWhite
+      ParentBackground = False
       TabOrder = 0
+      StyleElements = []
       object _spacer_image_bottom: TRzSpacer
         Left = 0
         Top = 399
@@ -4948,6 +4969,7 @@ object Presentation: TPresentation
       BevelOuter = bvNone
       ParentColor = True
       TabOrder = 1
+      StyleElements = []
       object _spacer_extraDescription_left: TRzSpacer
         Left = 0
         Top = 5
@@ -4992,6 +5014,7 @@ object Presentation: TPresentation
         ParentShowHint = False
         ShowHint = True
         TabOrder = 0
+        StyleElements = []
         object img_extraDescription_info: TImage
           Left = 583
           Top = 0
@@ -5018,21 +5041,6 @@ object Presentation: TPresentation
           ExplicitTop = 11
           ExplicitHeight = 24
         end
-        object lbl_extraDescription: TRzLabel
-          Left = 32
-          Top = 0
-          Width = 183
-          Height = 29
-          Align = alClient
-          Alignment = taCenter
-          Caption = 'Extra Description'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -24
-          Font.Name = 'Roboto'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
         object _spacer__extraDescription_left: TRzSpacer
           Left = 0
           Top = 0
@@ -5043,6 +5051,25 @@ object Presentation: TPresentation
           ExplicitLeft = 1
           ExplicitTop = 1
           ExplicitHeight = 22
+        end
+        object lbl_extraDescription: TLabel
+          Left = 32
+          Top = 0
+          Width = 551
+          Height = 35
+          Align = alClient
+          Alignment = taCenter
+          Caption = 'Extra Description'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -24
+          Font.Name = 'Roboto'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = False
+          StyleElements = []
+          ExplicitWidth = 183
+          ExplicitHeight = 29
         end
       end
     end
