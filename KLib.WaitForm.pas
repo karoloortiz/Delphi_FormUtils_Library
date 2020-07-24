@@ -13,6 +13,8 @@ const
   WM_TWAITFORM_PROCEDURE_OK = WM_USER + 1001;
   WM_TWAITFORM_PROCEDURE_ERR = WM_USER + 1002;
 
+procedure executeProcedureInWaitForm(myProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
+
 type
   TWaitForm = class(TForm)
     activityIndicator: TdxActivityIndicator;
@@ -31,8 +33,6 @@ type
 var
   WaitForm: TWaitForm;
 
-procedure executeProcedureInWaitForm(myProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
-
 implementation
 
 {$r *.dfm}
@@ -40,6 +40,37 @@ implementation
 
 uses
   klib.utils;
+
+procedure executeProcedureInWaitForm(myProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
+var
+  _waitForm: TWaitForm;
+  errorMsg: string;
+begin
+  _waitForm := TWaitForm.Create(nil);
+  _waitForm.myCustomProcedure := myProcedure;
+  if font <> nil then
+  begin
+    _waitForm.lbl_title.Font := font;
+  end
+  else
+  begin
+    _waitForm.lbl_title.Font.Size := 20;
+  end;
+  _waitForm.lbl_title.Caption := textWait;
+  _waitForm.ShowModal;
+
+  if Assigned(_waitForm.e) then
+  begin
+    errorMsg := _waitForm.e.Message;
+  end;
+
+  FreeAndNil(_waitForm);
+
+  if errorMsg <> '' then
+  begin
+    raise Exception.Create(errorMsg);
+  end;
+end;
 
 procedure TWaitForm.FormShow(Sender: TObject);
 var
@@ -80,37 +111,6 @@ begin
   _errorMsg := PansiChar(msg.LParam);
   e := Exception.Create(_errorMsg);
   close;
-end;
-
-procedure executeProcedureInWaitForm(myProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
-var
-  _waitForm: TWaitForm;
-  errorMsg: string;
-begin
-  _waitForm := TWaitForm.Create(nil);
-  _waitForm.myCustomProcedure := myProcedure;
-  if font <> nil then
-  begin
-    _waitForm.lbl_title.Font := font;
-  end
-  else
-  begin
-    _waitForm.lbl_title.Font.Size := 20;
-  end;
-  _waitForm.lbl_title.Caption := textWait;
-  _waitForm.ShowModal;
-
-  if Assigned(_waitForm.e) then
-  begin
-    errorMsg := _waitForm.e.Message;
-  end;
-
-  FreeAndNil(_waitForm);
-
-  if errorMsg <> '' then
-  begin
-    raise Exception.Create(errorMsg);
-  end;
 end;
 
 end.
