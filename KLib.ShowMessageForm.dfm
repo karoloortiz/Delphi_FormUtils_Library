@@ -273,6 +273,7 @@ object ShowMessageForm: TShowMessageForm
           Font.Style = []
           ParentFont = False
           TabOrder = 0
+          StyleElements = []
         end
       end
     end
