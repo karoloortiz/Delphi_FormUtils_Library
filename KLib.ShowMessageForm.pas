@@ -9,9 +9,11 @@ uses
   KLib.Types, Vcl.ComCtrls, RzEdit;
 
 type
+  TSizeText = (small, medium, large);
 
   TShowMessageFormCreate = record
     colorRGB: string;
+    sizeText: TSizeText;
     title: string;
     text: string;
     textIsRTFResource: boolean;
@@ -33,25 +35,26 @@ type
     _spacer_title_bottom: TRzSpacer;
     pnl_bottom: TPanel;
     pnl_body: TPanel;
-    pnl_checkBox: TPanel;
-    _spacer_checkBox_upper: TRzSpacer;
-    _pnl_checkBox: TPanel;
-    _spacer_checkBox_bottom: TRzSpacer;
     lbl_title: TLabel;
-    checkBox: TCheckBox;
     pnl_button_confirm: TPanel;
     pnl_button_cancel: TPanel;
-    _spacer_body_bottom: TRzSpacer;
-    _spacer_body_left: TRzSpacer;
-    _spacer_body_right: TRzSpacer;
-    _spacer_body_top: TRzSpacer;
-    richEdit_bodyText: TRzRichEdit;
-    img_bodyCenter: TImage;
-    _pnl_bodyCenter: TPanel;
     lbl_button_cancel: TLabel;
     lbl_button_confirm: TLabel;
     _shape_button_cancel: TShape;
     _shape_button_confirm: TShape;
+    _pnl_body: TPanel;
+    _pnl_bodyCenter: TPanel;
+    img_bodyCenter: TImage;
+    richEdit_bodyText: TRzRichEdit;
+    _spacer_body_bottom: TRzSpacer;
+    _spacer_body_left: TRzSpacer;
+    _spacer_body_right: TRzSpacer;
+    _spacer_body_top: TRzSpacer;
+    pnl_checkBox: TPanel;
+    _spacer_checkBox_upper: TRzSpacer;
+    _spacer_checkBox_bottom: TRzSpacer;
+    _pnl_checkBox: TPanel;
+    checkBox: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure pnl_button_confirmClick(Sender: TObject);
     procedure pnl_button_cancelClick(Sender: TObject);
@@ -65,10 +68,12 @@ type
     isCheckboxActive: boolean;
     text: string;
     img: TdxSmartImage;
+    sizeText: TSizeText;
     mainColorRGB: string;
     mainColorDarker: TColor;
     procedure loadRTF;
     procedure setMainColor;
+    procedure setSizeText;
     procedure setColorButtonConfirm;
     procedure setColorButtonCancel;
     procedure makePanelVisibleOnlyIfStringIsNotNull(myPanel: TPanel; myString: String);
@@ -120,7 +125,10 @@ begin
 end;
 
 constructor TShowMessageForm.Create(AOwner: TComponent; createInfo: TShowMessageFormCreate);
+var
+  _sizes: set of TSizeText;
 begin
+  _sizes := [small, medium, large];
   Create(AOwner);
 
   Caption := Application.Title;
@@ -132,6 +140,16 @@ begin
   end;
   with createInfo do
   begin
+    self.mainColorRGB := colorRGB;
+    if (sizeText in _sizes) then
+    begin
+      self.sizeText := sizeText;
+    end
+    else
+    begin
+      self.sizeText := TSizeText.medium;
+    end;
+
     self.lbl_title.Caption := title;
     if textIsRTFResource then
     begin
@@ -144,7 +162,6 @@ begin
     self.lbl_button_confirm.Caption := confirmButtonCaption;
     self.lbl_button_cancel.Caption := cancelButtonCaption;
     self.checkBox.Caption := checkboxCaption;
-    self.mainColorRGB := colorRGB;
     if imgName <> '' then
     begin
       Self.img := TdxSmartImage.Create;
@@ -161,6 +178,7 @@ begin
   end;
 
   setMainColor;
+  setSizeText;
   makePanelVisibleOnlyIfStringIsNotNull(pnl_title, lbl_title.Caption);
   makePanelVisibleOnlyIfStringIsNotNull(pnl_checkBox, checkBox.Caption);
   makePanelVisibleOnlyIfStringIsNotNull(pnl_button_cancel, lbl_button_cancel.Caption);
@@ -178,6 +196,22 @@ begin
     mainColorDarker := getDarkerTColor(_RGB.getTColor, 1);
     setColorButtonConfirm;
     setColorButtonCancel;
+  end;
+end;
+
+procedure TShowMessageForm.setSizeText;
+var
+  _modifiedHeightBodyText: integer;
+begin
+  if sizeText <> TSizeText.medium then
+  begin
+    _modifiedHeightBodyText := trunc(richEdit_bodyText.Height / 2);
+    if sizeText = TSizeText.small then
+    begin
+      _modifiedHeightBodyText := -_modifiedHeightBodyText;
+    end;
+    pnl_body.Height := pnl_body.Height + _modifiedHeightBodyText;
+    richEdit_bodyText.Height := richEdit_bodyText.Height + _modifiedHeightBodyText;
   end;
 end;
 
