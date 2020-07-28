@@ -178,7 +178,6 @@ object ShowMessageForm: TShowMessageForm
     ParentBackground = False
     TabOrder = 2
     StyleElements = []
-    ExplicitTop = 90
     object _pnl_body: TPanel
       Left = 1
       Top = 1
@@ -192,10 +191,6 @@ object ShowMessageForm: TShowMessageForm
       ShowCaption = False
       TabOrder = 0
       StyleElements = []
-      ExplicitLeft = 21
-      ExplicitTop = 31
-      ExplicitWidth = 657
-      ExplicitHeight = 417
       object _spacer_body_bottom: TRzSpacer
         Left = 0
         Top = 355
@@ -248,8 +243,6 @@ object ShowMessageForm: TShowMessageForm
         ShowCaption = False
         TabOrder = 0
         StyleElements = []
-        ExplicitLeft = 0
-        ExplicitTop = 0
         object img_bodyCenter: TImage
           Left = 0
           Top = 250
@@ -448,6 +441,7 @@ object ShowMessageForm: TShowMessageForm
           Width = 626
           Height = 250
           Align = alClient
+          Alignment = taCenter
           BevelInner = bvNone
           BevelOuter = bvNone
           BorderStyle = bsNone
