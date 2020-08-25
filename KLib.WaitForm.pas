@@ -13,7 +13,7 @@ const
   WM_TWAITFORM_PROCEDURE_OK = WM_USER + 1001;
   WM_TWAITFORM_PROCEDURE_ERR = WM_USER + 1002;
 
-procedure executeProcedureInWaitForm(myProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
+procedure executeProcedureInWaitForm(syncProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
 
 type
   TWaitForm = class(TForm)
@@ -41,13 +41,13 @@ implementation
 uses
   klib.utils;
 
-procedure executeProcedureInWaitForm(myProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
+procedure executeProcedureInWaitForm(syncProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
 var
   _waitForm: TWaitForm;
   errorMsg: string;
 begin
   _waitForm := TWaitForm.Create(nil);
-  _waitForm.myCustomProcedure := myProcedure;
+  _waitForm.myCustomProcedure := syncProcedure;
   if font <> nil then
   begin
     _waitForm.lbl_title.Font := font;

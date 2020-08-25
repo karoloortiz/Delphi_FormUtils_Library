@@ -9,7 +9,7 @@ uses
   KLib.Types, Vcl.ComCtrls, RzEdit;
 
 type
-  TSizeText = (small, medium, large);
+  TSizeText = (medium, small, large);
 
   TShowMessageFormCreate = record
     colorRGB: string;
@@ -76,7 +76,6 @@ type
     procedure setSizeText;
     procedure setColorButtonConfirm;
     procedure setColorButtonCancel;
-    procedure makePanelVisibleOnlyIfStringIsNotNull(myPanel: TPanel; myString: String);
     procedure myClose(isConfirmButtonPressed: boolean = true);
   public
     constructor Create(AOwner: TComponent; createInfo: TShowMessageFormCreate); reintroduce; overload;
@@ -102,7 +101,6 @@ const
 function myShowMessage(infoCreate: TShowMessageFormCreate): TShowMessageFormResult;
 var
   _showMessageForm: TShowMessageForm;
-  _showMessageFormCreate: TShowMessageFormCreate;
   _result: TShowMessageFormResult;
 begin
   _showMessageForm := TShowMessageForm.Create(nil, infoCreate);
@@ -110,18 +108,6 @@ begin
   _result := _showMessageForm.returnValue;
   FreeAndNil(_showMessageForm);
   result := _result;
-end;
-
-procedure TShowMessageForm.makePanelVisibleOnlyIfStringIsNotNull(myPanel: TPanel; myString: String);
-begin
-  if myString <> '' then
-  begin
-    myPanel.Visible := true;
-  end
-  else
-  begin
-    myPanel.Visible := false;
-  end;
 end;
 
 constructor TShowMessageForm.Create(AOwner: TComponent; createInfo: TShowMessageFormCreate);
