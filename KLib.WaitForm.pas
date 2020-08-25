@@ -39,7 +39,7 @@ implementation
 
 
 uses
-  klib.utils;
+  Klib.Async;
 
 procedure executeProcedureInWaitForm(syncProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
 var

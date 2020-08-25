@@ -231,7 +231,7 @@ begin
   browser.Silent := true;
 //  browser.Navigate('https://www.gestionaleopen.org/pdf_temp/');
 
-  bsaWebBrowser1.Navigate('https://www.gestionaleopen.org/pdf_temp/');
+//  bsaWebBrowser1.Navigate('https://www.gestionaleopen.org/pdf_temp/');
   //  browser.Navigate(pathPDF + openPDFParameters);
 
   //
