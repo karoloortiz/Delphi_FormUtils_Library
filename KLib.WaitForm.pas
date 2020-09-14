@@ -26,12 +26,10 @@ type
     procedure on_start(var Msg: TMessage); message WM_TWAITFORM_START;
     procedure on_procedure_ok(var Msg: TMessage); message WM_TWAITFORM_PROCEDURE_OK;
     procedure on_procedure_err(var Msg: TMessage); message WM_TWAITFORM_PROCEDURE_ERR;
-  public
-    { Public declarations }
-  end;
 
-var
-  WaitForm: TWaitForm;
+  public
+    procedure close; overload;
+  end;
 
 implementation
 
@@ -73,8 +71,6 @@ begin
 end;
 
 procedure TWaitForm.FormShow(Sender: TObject);
-var
-  _reply: TAsyncifyProcedureReply;
 begin
   activityIndicator.Enabled := true;
   self.Caption := Application.Name;
@@ -100,7 +96,7 @@ end;
 procedure TWaitForm.on_procedure_ok(var Msg: TMessage);
 begin
   activityIndicator.Enabled := false;
-  Close;
+  close;
 end;
 
 procedure TWaitForm.on_procedure_err(var Msg: TMessage);
@@ -111,6 +107,12 @@ begin
   _errorMsg := PansiChar(msg.LParam);
   e := Exception.Create(_errorMsg);
   close;
+end;
+
+procedure TWaitForm.close;
+begin
+  Release;
+  inherited close;
 end;
 
 end.

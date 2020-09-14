@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.OleCtrls,
-  AcroPDFLib_TLB, SHDocVw, Vcl.StdCtrls, dxGDIPlusClasses,
+  SHDocVw, Vcl.StdCtrls, dxGDIPlusClasses,
   KLib.Types, RzBckgnd, bsawebbrowser, Vcl.OleCtnrs, Vcl.ComCtrls, RzEdit;
 
 type

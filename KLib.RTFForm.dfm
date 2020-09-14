@@ -173,10 +173,10 @@ object RTFForm: TRTFForm
     TabOrder = 1
     StyleElements = []
     object button_exit: TImage
-      Left = 825
-      Top = 0
-      Width = 48
-      Height = 48
+      Left = 845
+      Top = 5
+      Width = 28
+      Height = 36
       Cursor = crHandPoint
       Picture.Data = {
         0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000030
@@ -196,6 +196,7 @@ object RTFForm: TRTFForm
         3B445E3312F096123E29B8759AA7EE0385DA7C518F2306F68129D492980E4F9C
         9D1E21047F7E4B59925806DF9178C15F7AA12C9D96C35724127CB1998B12DFBB
         7CA992497C62E4F1FF1F90559ABFE06BC0760000000049454E44AE426082}
+      Proportional = True
       OnClick = button_exitClick
     end
     object lbl_title: TLabel
