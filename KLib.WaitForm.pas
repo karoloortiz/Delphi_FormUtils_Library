@@ -10,23 +10,22 @@ uses
 
 const
   WM_TWAITFORM_START = WM_USER + 1000;
-  WM_TWAITFORM_PROCEDURE_OK = WM_USER + 1001;
-  WM_TWAITFORM_PROCEDURE_ERR = WM_USER + 1002;
+  WM_TWAITFORM_METHOD_OK = WM_USER + 1001;
+  WM_TWAITFORM_METHOD_ERR = WM_USER + 1002;
 
-procedure executeProcedureInWaitForm(syncProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
+procedure executeMethodInWaitForm(syncMethod: TMethod; textWait: string; font: TFont = nil);
 
 type
   TWaitForm = class(TForm)
     activityIndicator: TdxActivityIndicator;
-    lbl_title: TLabel;
+    title: TLabel;
     procedure FormShow(Sender: TObject);
   private
     e: Exception;
-    myCustomProcedure: TProcedureOfObject;
-    procedure on_start(var Msg: TMessage); message WM_TWAITFORM_START;
-    procedure on_procedure_ok(var Msg: TMessage); message WM_TWAITFORM_PROCEDURE_OK;
-    procedure on_procedure_err(var Msg: TMessage); message WM_TWAITFORM_PROCEDURE_ERR;
-
+    customMethod: TMethod;
+    procedure onStart(var Msg: TMessage); message WM_TWAITFORM_START;
+    procedure onMethodOk(var Msg: TMessage); message WM_TWAITFORM_METHOD_OK;
+    procedure onMethodErr(var Msg: TMessage); message WM_TWAITFORM_METHOD_ERR;
   public
     procedure close; overload;
   end;
@@ -39,22 +38,22 @@ implementation
 uses
   Klib.Async;
 
-procedure executeProcedureInWaitForm(syncProcedure: TProcedureOfObject; textWait: string; font: TFont = nil);
+procedure executeMethodInWaitForm(syncMethod: TMethod; textWait: string; font: TFont = nil);
 var
   _waitForm: TWaitForm;
   errorMsg: string;
 begin
   _waitForm := TWaitForm.Create(nil);
-  _waitForm.myCustomProcedure := syncProcedure;
+  _waitForm.customMethod := syncMethod;
   if font <> nil then
   begin
-    _waitForm.lbl_title.Font := font;
+    _waitForm.title.Font := font;
   end
   else
   begin
-    _waitForm.lbl_title.Font.Size := 20;
+    _waitForm.title.Font.Size := 20;
   end;
-  _waitForm.lbl_title.Caption := textWait;
+  _waitForm.title.Caption := textWait;
   _waitForm.ShowModal;
 
   if Assigned(_waitForm.e) then
@@ -77,29 +76,29 @@ begin
   PostMessage(Handle, WM_TWAITFORM_START, 0, 0);
 end;
 
-procedure TWaitForm.on_start(var Msg: TMessage);
+procedure TWaitForm.onStart(var Msg: TMessage);
 var
   _reply: TAsyncifyProcedureReply;
 begin
-  if Assigned(myCustomProcedure) then
+  if Assigned(customMethod) then
   begin
     with _reply do
     begin
       handle := self.Handle;
-      msg_resolve := WM_TWAITFORM_PROCEDURE_OK;
-      msg_reject := WM_TWAITFORM_PROCEDURE_ERR;
+      msg_resolve := WM_TWAITFORM_METHOD_OK;
+      msg_reject := WM_TWAITFORM_METHOD_ERR;
     end;
-    asyncifyProcedure(myCustomProcedure, _reply);
+    asyncifyMethod(customMethod, _reply);
   end;
 end;
 
-procedure TWaitForm.on_procedure_ok(var Msg: TMessage);
+procedure TWaitForm.onMethodOk(var Msg: TMessage);
 begin
   activityIndicator.Enabled := false;
   close;
 end;
 
-procedure TWaitForm.on_procedure_err(var Msg: TMessage);
+procedure TWaitForm.onMethodErr(var Msg: TMessage);
 var
   _errorMsg: string;
 begin

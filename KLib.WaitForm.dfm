@@ -20,7 +20,7 @@ object WaitForm: TWaitForm
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object lbl_title: TLabel
+  object title: TLabel
     Left = 0
     Top = 0
     Width = 414

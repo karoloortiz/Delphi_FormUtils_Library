@@ -5,8 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.OleCtrls,
-  SHDocVw, Vcl.StdCtrls, dxGDIPlusClasses,
-  KLib.Types, RzBckgnd, bsawebbrowser, Vcl.OleCtnrs, Vcl.ComCtrls, RzEdit;
+  Vcl.ComCtrls, RzEdit, Vcl.StdCtrls, dxGDIPlusClasses,
+  KLib.Types;
 
 type
   TSizeRTF = (medium, small, large);
