@@ -18,15 +18,18 @@ procedure executeMethodInWaitForm(syncMethod: TMethod; textWait: string; font: T
 type
   TWaitForm = class(TForm)
     activityIndicator: TdxActivityIndicator;
-    title: TLabel;
+    lbl_title: TLabel;
     procedure FormShow(Sender: TObject);
   private
     e: Exception;
     customMethod: TMethod;
+    function getTitle: string;
+    procedure setTitle(value: string);
     procedure onStart(var Msg: TMessage); message WM_TWAITFORM_START;
     procedure onMethodOk(var Msg: TMessage); message WM_TWAITFORM_METHOD_OK;
     procedure onMethodErr(var Msg: TMessage); message WM_TWAITFORM_METHOD_ERR;
   public
+    property title: string read getTitle write setTitle;
     procedure close; overload;
   end;
 
@@ -47,13 +50,13 @@ begin
   _waitForm.customMethod := syncMethod;
   if font <> nil then
   begin
-    _waitForm.title.Font := font;
+    _waitForm.lbl_title.Font := font;
   end
   else
   begin
-    _waitForm.title.Font.Size := 20;
+    _waitForm.lbl_title.Font.Size := 20;
   end;
-  _waitForm.title.Caption := textWait;
+  _waitForm.title := textWait;
   _waitForm.ShowModal;
 
   if Assigned(_waitForm.e) then
@@ -74,6 +77,16 @@ begin
   activityIndicator.Enabled := true;
   self.Caption := Application.Name;
   PostMessage(Handle, WM_TWAITFORM_START, 0, 0);
+end;
+
+function TWaitForm.getTitle: string;
+begin
+  Result := lbl_title.Caption;
+end;
+
+procedure TWaitForm.setTitle(value: string);
+begin
+  lbl_title.Caption := value;
 end;
 
 procedure TWaitForm.onStart(var Msg: TMessage);
