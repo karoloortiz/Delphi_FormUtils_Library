@@ -1,7 +1,7 @@
 object RTFForm: TRTFForm
   Left = 0
   Top = 0
-  ActiveControl = _pnl_head
+  ActiveControl = pnl_head
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'RTFForm'
@@ -157,7 +157,7 @@ object RTFForm: TRTFForm
       end
     end
   end
-  object _pnl_head: TPanel
+  object pnl_head: TPanel
     Left = 0
     Top = 0
     Width = 894
@@ -217,7 +217,7 @@ object RTFForm: TRTFForm
       StyleElements = []
     end
   end
-  object richEdit_bodyText: TRzRichEdit
+  object bodyText_richEdit: TRzRichEdit
     Left = 0
     Top = 61
     Width = 894

@@ -1,15 +1,52 @@
+{
+  KLib Version = 1.0
+  The Clear BSD License
+
+  Copyright (c) 2020 by Karol De Nery Ortiz LLave. All rights reserved.
+  zitrokarol@gmail.com
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted (subject to the limitations in the disclaimer
+  below) provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+  * Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+
+  * Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from this
+  software without specific prior written permission.
+
+  NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY
+  THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+  PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+  IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  POSSIBILITY OF SUCH DAMAGE.
+}
+
 unit KLib.PresentationForm;
 
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, RzLabel,
-  RzPanel, dxGDIPlusClasses, PngImage,
-  KLib.Types;
+  KLib.Types, KLib.Constants,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  dxGDIPlusClasses,
+  RzPanel;
 
 const
-  TYPE_PRESENTATION_RESOURCE = 'JSON';
+  TYPE_PRESENTATION_RESOURCE = JSON_TYPE;
 
 type
   TJSONExtraDescription = record
@@ -88,7 +125,7 @@ type
     procedure button_img_backClick(Sender: TObject);
     procedure lbl_button_endClick(Sender: TObject);
   private
-    callBackProcedure: TProcedureOfObject;
+    callBackMethod: TMethod;
     resourceJSONName: string;
     JSONPresentationSchema: TJSONPresentationSchema;
     mainColorRGB: string;
@@ -112,7 +149,7 @@ type
     procedure setVerticalSpacersDimensions;
     procedure myClose;
   public
-    constructor Create(AOwner: TComponent; resourceJSONName: string; callBackProcedure: TProcedureOfObject = nil); reintroduce; overload;
+    constructor Create(AOwner: TComponent; resourceJSONName: string; callBackMethod: TMethod = nil); reintroduce; overload;
   end;
 
 var
@@ -124,30 +161,13 @@ implementation
 
 
 uses
-  KLib.Graphics, KLib.Utils, System.JSON;
+  KLib.Graphics, KLib.Utils,
+  System.JSON;
 
-function TJSONExtraDescription.getEmptyRecord: TJSONExtraDescription;
-begin
-  self.description := '';
-  self.hint := '';
-  result := self;
-end;
-
-function TJSONSlide.setEmpty: TJSONSlide;
-begin
-  self.title := '';
-  self.subTitle := '';
-  self.imgAsResource := true;
-  self.imgName := '';
-  self.extraDescription.getEmptyRecord;
-  result := self;
-end;
-
-constructor TPresentation.Create(AOwner: TComponent; resourceJSONName: string;
-  callBackProcedure: TProcedureOfObject = nil);
+constructor TPresentation.Create(AOwner: TComponent; resourceJSONName: string; callBackMethod: TMethod);
 begin
   Self.resourceJSONName := resourceJSONName;
-  self.callBackProcedure := callBackProcedure;
+  self.callBackMethod := callBackMethod;
   Create(AOwner);
 end;
 
@@ -237,11 +257,12 @@ end;
 
 procedure TPresentation.setCountSlide;
 begin
-  lbl_countSlide.Caption := #13#10 + IntToStr(currentSlide + 1) + '/' + IntToStr(countSlides);
+  lbl_countSlide.Caption := sLineBreak + IntToStr(currentSlide + 1) + '/' + IntToStr(countSlides);
 end;
 
 procedure TPresentation.loadJSONResource;
 var
+  _resource: KLib.Types.TResource;
   resourceSchemaAsString: String;
   JSONFile: TBytes;
   JSONMain: TJSONValue;
@@ -251,7 +272,12 @@ var
   _extraDescription: TJSONObject;
   i: integer;
 begin
-  resourceSchemaAsString := getResourceAsString(resourceJSONName, TYPE_PRESENTATION_RESOURCE);
+  with _resource do
+  begin
+    name := resourceJSONName;
+    _type := TYPE_PRESENTATION_RESOURCE;
+  end;
+  resourceSchemaAsString := getResourceAsString(_resource);
   JSONFile := TEncoding.ASCII.GetBytes(resourceSchemaAsString);
   JSONMain := TJSONObject.ParseJSONValue(JSONFile, 0);
   if JSONMain <> nil then
@@ -321,9 +347,9 @@ end;
 
 procedure TPresentation.myClose;
 begin
-  if Assigned(callbackProcedure) then
+  if Assigned(callBackMethod) then
   begin
-    callbackProcedure;
+    callBackMethod;
   end;
   close;
 end;
@@ -414,6 +440,23 @@ begin
   _spacer_image_right.Width := _spacer_image_left.Width;
   _spacer_extraDescription_right.Width := _spacer_extraDescription_left.Width;
   _spacer__extraDescription_left.Width := img_extraDescription_info.Width;
+end;
+
+function TJSONExtraDescription.getEmptyRecord: TJSONExtraDescription;
+begin
+  self.description := '';
+  self.hint := '';
+  result := self;
+end;
+
+function TJSONSlide.setEmpty: TJSONSlide;
+begin
+  self.title := '';
+  self.subTitle := '';
+  self.imgAsResource := true;
+  self.imgName := '';
+  self.extraDescription.getEmptyRecord;
+  result := self;
 end;
 
 end.

@@ -1,12 +1,49 @@
+{
+  KLib Version = 1.0
+  The Clear BSD License
+
+  Copyright (c) 2020 by Karol De Nery Ortiz LLave. All rights reserved.
+  zitrokarol@gmail.com
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted (subject to the limitations in the disclaimer
+  below) provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+  * Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+
+  * Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from this
+  software without specific prior written permission.
+
+  NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY
+  THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+  PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+  IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  POSSIBILITY OF SUCH DAMAGE.
+}
 unit KLib.RTFForm;
 
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.OleCtrls,
-  Vcl.ComCtrls, RzEdit, Vcl.StdCtrls, dxGDIPlusClasses,
-  KLib.Types;
+  KLib.Types,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.OleCtrls, Vcl.ComCtrls, Vcl.StdCtrls,
+  Winapi.Windows, Winapi.Messages,
+  System.SysUtils, System.Variants, System.Classes,
+  RzEdit,
+  dxGDIPlusClasses;
 
 type
   TSizeRTF = (medium, small, large);
@@ -29,11 +66,11 @@ type
     _pnl_bottom: TPanel;
     lbl_checkBox: TLabel;
     buttom_pnl_confirm: TPanel;
-    _pnl_head: TPanel;
+    pnl_head: TPanel;
     button_exit: TImage;
     pnl_checkbox: TPanel;
     lbl_title: TLabel;
-    richEdit_bodyText: TRzRichEdit;
+    bodyText_richEdit: TRzRichEdit;
     procedure FormCreate(Sender: TObject);
     procedure checkBox_imgClick(Sender: TObject);
     procedure button_exitClick(Sender: TObject);
@@ -71,7 +108,7 @@ implementation
 
 
 uses
-  KLib.Graphics;
+  KLib.Graphics, KLib.Utils;
 
 const
   RGBCOLOR_DISABLED_BUTTON = '180180180';
@@ -94,7 +131,7 @@ var
   _RTFForm: TRTFForm;
   _result: boolean;
 begin
-  infoCreate.pathRTF := ExpandFileName(infoCreate.pathRTF);
+  infoCreate.pathRTF := getValidFullPath(infoCreate.pathRTF);
   _RTFForm := TRTFForm.Create(nil, infoCreate);
   _RTFForm.ShowModal;
   _result := _RTFForm.result;
@@ -163,7 +200,7 @@ begin
   setSizeRTF;
   disableConfirmButtom;
 
-  richEdit_bodyText.HideScrollBars := not showScrollbar;
+  bodyText_richEdit.HideScrollBars := not showScrollbar;
 end;
 
 procedure TRTFForm.setSizeRTF;
@@ -172,7 +209,7 @@ var
 begin
   if sizeRTF <> TSizeRTF.medium then
   begin
-    _modifiedHeight := trunc(richEdit_bodyText.Height / 2.5);
+    _modifiedHeight := trunc(bodyText_richEdit.Height / 2.5);
     if sizeRTF = TSizeRTF.small then
     begin
       _modifiedHeight := -_modifiedHeight;
@@ -191,8 +228,8 @@ var
   _fiileStream: TFileStream;
 begin
   _fiileStream := TFileStream.Create(pathRTF, fmOpenRead);
-  richEdit_bodyText.PlainText := False;
-  richEdit_bodyText.Lines.LoadFromStream(_fiileStream);
+  bodyText_richEdit.PlainText := False;
+  bodyText_richEdit.Lines.LoadFromStream(_fiileStream);
   FreeAndNil(_fiileStream);
 end;
 
