@@ -152,7 +152,7 @@ var
   _errMsg: string;
 begin
   activityIndicator.Enabled := false;
-  _errMsg := PansiChar(msg.LParam);
+  _errMsg := string(PansiChar(msg.LParam));
   e := Exception.Create(_errMsg);
   close;
 end;
