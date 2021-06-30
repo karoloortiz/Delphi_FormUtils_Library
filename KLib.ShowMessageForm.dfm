@@ -55,8 +55,8 @@ object ShowMessageForm: TShowMessageForm
     object lbl_title: TLabel
       Left = 1
       Top = 26
-      Width = 73
-      Height = 43
+      Width = 656
+      Height = 49
       Align = alClient
       Alignment = taCenter
       Caption = 'Title'
@@ -68,6 +68,8 @@ object ShowMessageForm: TShowMessageForm
       ParentFont = False
       Transparent = False
       StyleElements = []
+      ExplicitWidth = 73
+      ExplicitHeight = 43
     end
   end
   object pnl_bottom: TPanel
