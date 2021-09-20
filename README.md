@@ -1,6 +1,6 @@
 # Delphi_FormUtils_Library
 
-KLib Version = 1.0
+KLib Version = 2.0
 
 A library with some useful visual Forms for your Delphi Apps based on VCL.
 
