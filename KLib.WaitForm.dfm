@@ -17,6 +17,7 @@ object WaitForm: TWaitForm
   OldCreateOrder = False
   Position = poScreenCenter
   StyleElements = []
+  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13

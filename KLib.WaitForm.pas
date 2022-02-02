@@ -57,6 +57,7 @@ type
     activityIndicator: TdxActivityIndicator;
     title_lbl: TLabel;
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     e: Exception;
     customMethod: TMethod;
@@ -156,6 +157,11 @@ begin
   _errMsg := string(PansiChar(msg.LParam));
   e := Exception.Create(_errMsg);
   close;
+end;
+
+procedure TWaitForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
 end;
 
 procedure TWaitForm.close;
