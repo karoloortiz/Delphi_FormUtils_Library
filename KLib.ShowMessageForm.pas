@@ -209,7 +209,7 @@ end;
 
 procedure TShowMessageForm.setMainColor;
 var
-  _color: Tcolor;
+  _color: TColor;
   _RGB: TRGB;
 begin
   if mainColorRGB <> '' then

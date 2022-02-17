@@ -402,7 +402,7 @@ end;
 
 procedure TPresentation.setMainColor;
 var
-  _color: Tcolor;
+  _color: TColor;
   _RGB: TRGB;
 begin
   _RGB.loadFromString(mainColorRGB);
@@ -425,7 +425,7 @@ end;
 
 procedure TPresentation.setWhiteAsSecondColor;
 var
-  _color: Tcolor;
+  _color: TColor;
 begin
   _color := clWhite;
   setTColorToTPanel(pnl_body, _color);
