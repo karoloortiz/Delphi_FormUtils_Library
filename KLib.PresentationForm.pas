@@ -162,7 +162,7 @@ implementation
 
 uses
   KLib.Graphics, KLib.Utils,
-  System.JSON;
+  System.JSON, System.UITypes;
 
 constructor TPresentation.Create(AOwner: TComponent; resourceJSONName: string; callBackMethod: TMethod);
 begin
@@ -402,7 +402,6 @@ end;
 
 procedure TPresentation.setMainColor;
 var
-  _color: TColor;
   _RGB: TRGB;
 begin
   _RGB.loadFromString(mainColorRGB);

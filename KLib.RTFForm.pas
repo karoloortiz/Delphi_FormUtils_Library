@@ -84,7 +84,6 @@ type
 
     colorButtom: TColorButtom;
     isCheckBoxChecked: boolean;
-
     procedure disableConfirmButtom;
     procedure enableConfirmButtom;
     procedure setSizeRTF;

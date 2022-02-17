@@ -101,8 +101,6 @@ type
   private
     returnValue: TShowMessageFormResult;
     resourceRTFName: string;
-    isCancelButtonActive: boolean;
-    isCheckboxActive: boolean;
     text: string;
     img: TdxSmartImage;
     sizeText: TSizeText;
@@ -209,7 +207,6 @@ end;
 
 procedure TShowMessageForm.setMainColor;
 var
-  _color: TColor;
   _RGB: TRGB;
 begin
   if mainColorRGB <> '' then
