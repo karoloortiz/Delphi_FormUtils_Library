@@ -162,7 +162,7 @@ implementation
 
 uses
   KLib.Graphics, KLib.Utils,
-  System.JSON, System.UITypes;
+  System.JSON, System.UITypes, System.Generics.Collections;
 
 constructor TPresentation.Create(AOwner: TComponent; resourceJSONName: string; callBackMethod: TMethod);
 begin
