@@ -1,5 +1,5 @@
 {
-  KLib Version = 2.0
+  KLib Version = 3.0
   The Clear BSD License
 
   Copyright (c) 2020 by Karol De Nery Ortiz LLave. All rights reserved.
@@ -43,14 +43,17 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   Winapi.Windows, Winapi.Messages,
   System.SysUtils, System.Variants, System.Classes,
-  cxLookAndFeelPainters, cxGraphics, cxControls, cxLookAndFeels, dxActivityIndicator;
+  cxLookAndFeelPainters, cxGraphics, cxControls, cxLookAndFeels, dxActivityIndicator,
+  dxSkinsCore;
 
 const
   WM_TWAITFORM_START = WM_USER + 1000;
   WM_TWAITFORM_METHOD_OK = WM_USER + 1001;
   WM_TWAITFORM_METHOD_ERR = WM_USER + 1002;
 
-procedure executeMethodInWaitForm(syncMethod: TMethod; textWait: string; font: TFont = nil);
+procedure executeInWaitForm(syncMethod: KLib.Types.TMethod; waitingText: string = 'Waiting'; font: TFont = nil); overload;
+procedure executeInWaitForm(syncMethod: KLib.Types.TProcedure; waitingText: string = 'Waiting'; font: TFont = nil); overload;
+procedure executeInWaitForm(syncMethod: KLib.Types.TAnonymousMethod; waitingText: string = 'Waiting'; font: TFont = nil); overload;
 
 type
   TWaitForm = class(TForm)
@@ -59,16 +62,26 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
+    customAnonymousMethod: KLib.Types.TAnonymousMethod;
     e: Exception;
-    customMethod: TMethod;
+
     function getTitle: string;
     procedure setTitle(value: string);
     procedure onStart(var Msg: TMessage); message WM_TWAITFORM_START;
     procedure onMethodOk(var Msg: TMessage); message WM_TWAITFORM_METHOD_OK;
     procedure onMethodErr(var Msg: TMessage); message WM_TWAITFORM_METHOD_ERR;
   public
+    constructor Create(AOwner: TComponent; syncMethod: KLib.Types.TMethod;
+      waitingText: string = 'Waiting'; font: TFont = nil); overload;
+    constructor Create(AOwner: TComponent; syncMethod: KLib.Types.TProcedure;
+      waitingText: string = 'Waiting'; font: TFont = nil); overload;
+    constructor Create(AOwner: TComponent; syncMethod: KLib.Types.TAnonymousMethod;
+      waitingText: string = 'Waiting'; font: TFont = nil); overload;
+    constructor Create(AOwner: TComponent; waitingText: string = 'Waiting'; font: TFont = nil); overload;
+
     property title: string read getTitle write setTitle;
     procedure close; overload;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -77,24 +90,39 @@ implementation
 
 
 uses
-  Klib.Async;
+  Klib.Asyncify;
 
-procedure executeMethodInWaitForm(syncMethod: TMethod; textWait: string; font: TFont = nil);
+procedure executeInWaitForm(syncMethod: KLib.Types.TMethod; waitingText: string = 'Waiting'; font: TFont = nil);
+begin
+  executeInWaitForm(
+    procedure
+    begin
+      syncMethod;
+    end,
+    waitingText,
+    font
+    );
+end;
+
+procedure executeInWaitForm(syncMethod: KLib.Types.TProcedure; waitingText: string = 'Waiting'; font: TFont = nil);
+begin
+  executeInWaitForm(
+    procedure
+    begin
+      syncMethod;
+    end,
+    waitingText,
+    font
+    );
+end;
+
+procedure executeInWaitForm(syncMethod: TAnonymousMethod; waitingText: string = 'Waiting'; font: TFont = nil);
 var
   _waitForm: TWaitForm;
   errMsg: string;
 begin
-  _waitForm := TWaitForm.Create(nil);
-  _waitForm.customMethod := syncMethod;
-  if font <> nil then
-  begin
-    _waitForm.title_lbl.Font := font;
-  end
-  else
-  begin
-    _waitForm.title_lbl.Font.Size := 20;
-  end;
-  _waitForm.title := textWait;
+  _waitForm := TWaitForm.Create(nil, syncMethod, waitingText, font);
+
   _waitForm.ShowModal;
 
   if Assigned(_waitForm.e) then
@@ -110,10 +138,53 @@ begin
   end;
 end;
 
+constructor TWaitForm.Create(AOwner: TComponent; syncMethod: KLib.Types.TMethod;
+waitingText: string = 'Waiting'; font: TFont = nil);
+begin
+  Self.customAnonymousMethod :=
+      procedure
+    begin
+      syncMethod;
+    end;
+  Create(AOwner, waitingText, font);
+end;
+
+constructor TWaitForm.Create(AOwner: TComponent; syncMethod: KLib.Types.TProcedure;
+waitingText: string = 'Waiting'; font: TFont = nil);
+begin
+  Self.customAnonymousMethod :=
+      procedure
+    begin
+      syncMethod;
+    end;
+  Create(AOwner, waitingText, font);
+end;
+
+constructor TWaitForm.Create(AOwner: TComponent; syncMethod: KLib.Types.TAnonymousMethod;
+waitingText: string = 'Waiting'; font: TFont = nil);
+begin
+  Self.customAnonymousMethod := syncMethod;
+  Create(AOwner, waitingText, font);
+end;
+
+constructor TWaitForm.Create(AOwner: TComponent; waitingText: string = 'Waiting'; font: TFont = nil);
+begin
+  inherited Create(AOwner);
+  Self.title := waitingText;
+  if font <> nil then
+  begin
+    Self.title_lbl.Font := font;
+  end
+  else
+  begin
+    Self.title_lbl.Font.Size := 20;
+  end;
+end;
+
 procedure TWaitForm.FormShow(Sender: TObject);
 begin
   activityIndicator.Enabled := true;
-  self.Caption := Application.Name;
+  Self.Caption := Application.Name;
   PostMessage(Handle, WM_TWAITFORM_START, 0, 0);
 end;
 
@@ -131,15 +202,15 @@ procedure TWaitForm.onStart(var Msg: TMessage);
 var
   _reply: TAsyncifyMethodReply;
 begin
-  if Assigned(customMethod) then
+  if Assigned(customAnonymousMethod) then
   begin
     with _reply do
     begin
-      handle := self.Handle;
+      handle := Self.Handle;
       msg_resolve := WM_TWAITFORM_METHOD_OK;
       msg_reject := WM_TWAITFORM_METHOD_ERR;
     end;
-    asyncifyMethod(customMethod, _reply);
+    asyncify(customAnonymousMethod, _reply);
   end;
 end;
 
@@ -151,10 +222,16 @@ end;
 
 procedure TWaitForm.onMethodErr(var Msg: TMessage);
 var
+  _errorMsg_PString: PString;
   _errMsg: string;
 begin
   activityIndicator.Enabled := false;
-  _errMsg := string(PansiChar(msg.LParam));
+  _errorMsg_PString := PString(Msg.LParam);
+  try
+    _errMsg := _errorMsg_PString^;
+  finally
+    Dispose(_errorMsg_PString);
+  end;
   e := Exception.Create(_errMsg);
   close;
 end;
@@ -168,6 +245,12 @@ procedure TWaitForm.close;
 begin
   Release;
   inherited close;
+end;
+
+destructor TWaitForm.Destroy;
+begin
+  FreeAndNil(e);
+  inherited;
 end;
 
 end.
