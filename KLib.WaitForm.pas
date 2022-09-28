@@ -72,12 +72,12 @@ type
     procedure onMethodErr(var Msg: TMessage); message WM_TWAITFORM_METHOD_ERR;
   public
     constructor Create(AOwner: TComponent; syncMethod: KLib.Types.TMethod;
-      waitingText: string = 'Waiting'; font: TFont = nil); overload;
+      waitingText: string = 'Waiting'; font: TFont = nil); reintroduce; overload;
     constructor Create(AOwner: TComponent; syncMethod: KLib.Types.TProcedure;
-      waitingText: string = 'Waiting'; font: TFont = nil); overload;
+      waitingText: string = 'Waiting'; font: TFont = nil); reintroduce; overload;
     constructor Create(AOwner: TComponent; syncMethod: KLib.Types.TAnonymousMethod;
-      waitingText: string = 'Waiting'; font: TFont = nil); overload;
-    constructor Create(AOwner: TComponent; waitingText: string = 'Waiting'; font: TFont = nil); overload;
+      waitingText: string = 'Waiting'; font: TFont = nil); reintroduce; overload;
+    constructor Create(AOwner: TComponent; waitingText: string = 'Waiting'; font: TFont = nil); reintroduce; overload;
 
     property title: string read getTitle write setTitle;
     procedure close; overload;
