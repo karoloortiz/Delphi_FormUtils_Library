@@ -1,29 +1,27 @@
-object ShowMessageForm: TShowMessageForm
+object MessageForm: TMessageForm
   Left = 0
   Top = 0
   ActiveControl = pnl_button_confirm
   AutoSize = True
   BorderStyle = bsToolWindow
-  Caption = 'ShowMessageForm'
+  Caption = 'MessageForm'
   ClientHeight = 597
-  ClientWidth = 658
+  ClientWidth = 624
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   ShowHint = True
   StyleElements = []
   OnCreate = FormCreate
-  PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object pnl_title: TPanel
     Left = 0
     Top = 0
-    Width = 658
+    Width = 624
     Height = 91
     Align = alTop
     Color = clMenuHighlight
@@ -39,14 +37,14 @@ object ShowMessageForm: TShowMessageForm
     object _spacer_title_top: TRzSpacer
       Left = 1
       Top = 1
-      Width = 656
+      Width = 622
       Align = alTop
       ExplicitWidth = 815
     end
     object _spacer_title_bottom: TRzSpacer
       Left = 1
       Top = 75
-      Width = 656
+      Width = 622
       Height = 15
       Align = alBottom
       ExplicitTop = 70
@@ -55,7 +53,7 @@ object ShowMessageForm: TShowMessageForm
     object lbl_title: TLabel
       Left = 1
       Top = 26
-      Width = 656
+      Width = 622
       Height = 49
       Align = alClient
       Alignment = taCenter
@@ -75,7 +73,7 @@ object ShowMessageForm: TShowMessageForm
   object pnl_bottom: TPanel
     Left = 0
     Top = 506
-    Width = 658
+    Width = 624
     Height = 91
     Align = alTop
     Color = clWhite
@@ -171,7 +169,7 @@ object ShowMessageForm: TShowMessageForm
   object pnl_body: TPanel
     Left = 0
     Top = 91
-    Width = 658
+    Width = 624
     Height = 415
     Align = alTop
     Color = clWhite
@@ -181,7 +179,7 @@ object ShowMessageForm: TShowMessageForm
     object _pnl_body: TPanel
       Left = 1
       Top = 1
-      Width = 656
+      Width = 622
       Height = 375
       Align = alClient
       AutoSize = True
@@ -194,7 +192,7 @@ object ShowMessageForm: TShowMessageForm
       object _spacer_body_bottom: TRzSpacer
         Left = 0
         Top = 355
-        Width = 656
+        Width = 622
         Height = 20
         Align = alBottom
         ExplicitTop = 404
@@ -212,7 +210,7 @@ object ShowMessageForm: TShowMessageForm
         ExplicitHeight = 356
       end
       object _spacer_body_right: TRzSpacer
-        Left = 641
+        Left = 607
         Top = 25
         Width = 15
         Height = 330
@@ -225,7 +223,7 @@ object ShowMessageForm: TShowMessageForm
       object _spacer_body_top: TRzSpacer
         Left = 0
         Top = 0
-        Width = 656
+        Width = 622
         Align = alTop
         ExplicitTop = 5
         ExplicitWidth = 657
@@ -233,7 +231,7 @@ object ShowMessageForm: TShowMessageForm
       object _pnl_bodyCenter: TPanel
         Left = 15
         Top = 25
-        Width = 626
+        Width = 592
         Height = 330
         Align = alClient
         AutoSize = True
@@ -246,7 +244,7 @@ object ShowMessageForm: TShowMessageForm
         object img_bodyCenter: TImage
           Left = 0
           Top = 250
-          Width = 626
+          Width = 592
           Height = 80
           Align = alBottom
           Center = True
@@ -438,7 +436,7 @@ object ShowMessageForm: TShowMessageForm
         object richEdit_bodyText: TRzRichEdit
           Left = 0
           Top = 0
-          Width = 626
+          Width = 592
           Height = 250
           Align = alClient
           Alignment = taCenter
@@ -458,7 +456,6 @@ object ShowMessageForm: TShowMessageForm
           TabOrder = 0
           WantTabs = True
           StyleElements = []
-          Zoom = 100
           DisabledColor = clWhite
           FrameColor = clWhite
           FrameHotColor = clBtnHighlight
@@ -470,7 +467,7 @@ object ShowMessageForm: TShowMessageForm
     object pnl_checkBox: TPanel
       Left = 1
       Top = 376
-      Width = 656
+      Width = 622
       Height = 38
       Align = alBottom
       BevelOuter = bvNone
@@ -481,7 +478,7 @@ object ShowMessageForm: TShowMessageForm
       object _spacer_checkBox_upper: TRzSpacer
         Left = 0
         Top = 0
-        Width = 656
+        Width = 622
         Height = 5
         Align = alTop
         ExplicitWidth = 815
@@ -489,7 +486,7 @@ object ShowMessageForm: TShowMessageForm
       object _spacer_checkBox_bottom: TRzSpacer
         Left = 0
         Top = 33
-        Width = 656
+        Width = 622
         Height = 5
         Align = alBottom
         ExplicitTop = 34
@@ -498,7 +495,7 @@ object ShowMessageForm: TShowMessageForm
       object _pnl_checkBox: TPanel
         Left = 0
         Top = 5
-        Width = 656
+        Width = 622
         Height = 28
         Align = alClient
         AutoSize = True

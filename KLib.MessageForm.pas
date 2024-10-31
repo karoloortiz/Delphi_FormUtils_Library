@@ -34,7 +34,7 @@
   POSSIBILITY OF SUCH DAMAGE.
 }
 
-unit KLib.ShowMessageForm;
+unit KLib.MessageForm;
 
 interface
 
@@ -48,7 +48,7 @@ uses
 type
   TSizeText = (medium, small, large);
 
-  TShowMessageFormCreate = record
+  TMessageFormCreate = record
     colorRGB: string;
     sizeText: TSizeText;
     title: string;
@@ -61,12 +61,12 @@ type
     imgName: string;
   end;
 
-  TShowMessageFormResult = record
+  TMessageFormResult = record
     isConfirmButtonPressed: boolean;
     isCheckBoxChecked: boolean;
   end;
 
-  TShowMessageForm = class(TForm)
+  TMessageForm = class(TForm)
     pnl_title: TPanel;
     _spacer_title_top: TRzSpacer;
     _spacer_title_bottom: TRzSpacer;
@@ -99,7 +99,7 @@ type
     procedure lbl_button_confirmClick(Sender: TObject);
     procedure lbl_button_cancelClick(Sender: TObject);
   private
-    returnValue: TShowMessageFormResult;
+    returnValue: TMessageFormResult;
     resourceRTFName: string;
     text: string;
     img: TdxSmartImage;
@@ -113,14 +113,14 @@ type
     procedure setColorButtonCancel;
     procedure myClose(isConfirmButtonPressed: boolean = true);
   public
-    constructor Create(AOwner: TComponent; createInfo: TShowMessageFormCreate); reintroduce; overload;
+    constructor Create(AOwner: TComponent; createInfo: TMessageFormCreate); reintroduce; overload;
   published
   end;
 
-function myShowMessage(infoCreate: TShowMessageFormCreate): TShowMessageFormResult;
+function showMessageForm(infoCreate: TMessageFormCreate): TMessageFormResult;
 
 var
-  ShowMessageForm: TShowMessageForm;
+  MessageForm: TMessageForm;
 
 implementation
 
@@ -133,19 +133,20 @@ uses
 const
   TYPE_RESOURCE = RTF_TYPE;
 
-function myShowMessage(infoCreate: TShowMessageFormCreate): TShowMessageFormResult;
+function showMessageForm(infoCreate: TMessageFormCreate): TMessageFormResult;
 var
-  _showMessageForm: TShowMessageForm;
-  _result: TShowMessageFormResult;
+  _showMessageForm: TMessageForm;
+  _result: TMessageFormResult;
 begin
-  _showMessageForm := TShowMessageForm.Create(nil, infoCreate);
+  _showMessageForm := TMessageForm.Create(nil, infoCreate);
   _showMessageForm.ShowModal;
   _result := _showMessageForm.returnValue;
   FreeAndNil(_showMessageForm);
+
   result := _result;
 end;
 
-constructor TShowMessageForm.Create(AOwner: TComponent; createInfo: TShowMessageFormCreate);
+constructor TMessageForm.Create(AOwner: TComponent; createInfo: TMessageFormCreate);
 var
   _sizes: set of TSizeText;
 begin
@@ -205,7 +206,7 @@ begin
   makePanelVisibleOnlyIfStringIsNotNull(pnl_button_cancel, lbl_button_cancel.Caption);
 end;
 
-procedure TShowMessageForm.setMainColor;
+procedure TMessageForm.setMainColor;
 var
   _RGB: TRGB;
 begin
@@ -219,7 +220,7 @@ begin
   end;
 end;
 
-procedure TShowMessageForm.setSizeText;
+procedure TMessageForm.setSizeText;
 var
   _modifiedHeightBodyText: integer;
 begin
@@ -235,20 +236,20 @@ begin
   end;
 end;
 
-procedure TShowMessageForm.setColorButtonConfirm;
+procedure TMessageForm.setColorButtonConfirm;
 begin
   _shape_button_confirm.Brush.Color := mainColorDarker;
   _shape_button_confirm.Pen.Color := mainColorDarker;
 end;
 
-procedure TShowMessageForm.setColorButtonCancel;
+procedure TMessageForm.setColorButtonCancel;
 begin
   _shape_button_cancel.Brush.Color := clWhite;
   _shape_button_cancel.Pen.Color := mainColorDarker;
   lbl_button_cancel.Font.Color := mainColorDarker;
 end;
 
-procedure TShowMessageForm.FormCreate(Sender: TObject);
+procedure TMessageForm.FormCreate(Sender: TObject);
 begin
   richEdit_bodyText.Lines.Text := text;
   if resourceRTFName <> '' then
@@ -259,7 +260,7 @@ begin
   img_bodyCenter.Visible := Assigned(img);
 end;
 
-procedure TShowMessageForm.loadRTF;
+procedure TMessageForm.loadRTF;
 var
   _resource: KLib.Types.TResource;
   _resourceStream: TResourceStream;
@@ -275,32 +276,32 @@ begin
   FreeAndNil(_resourceStream);
 end;
 
-procedure TShowMessageForm.lbl_button_cancelClick(Sender: TObject);
+procedure TMessageForm.lbl_button_cancelClick(Sender: TObject);
 begin
   pnl_button_cancelClick(Sender);
 end;
 
-procedure TShowMessageForm.pnl_button_cancelClick(Sender: TObject);
+procedure TMessageForm.pnl_button_cancelClick(Sender: TObject);
 begin
   myClose(false);
 end;
 
-procedure TShowMessageForm.lbl_button_confirmClick(Sender: TObject);
+procedure TMessageForm.lbl_button_confirmClick(Sender: TObject);
 begin
   pnl_button_confirmClick(Sender);
 end;
 
-procedure TShowMessageForm.Panel2Click(Sender: TObject);
+procedure TMessageForm.Panel2Click(Sender: TObject);
 begin
   pnl_button_confirmClick(Sender);
 end;
 
-procedure TShowMessageForm.pnl_button_confirmClick(Sender: TObject);
+procedure TMessageForm.pnl_button_confirmClick(Sender: TObject);
 begin
   myClose;
 end;
 
-procedure TShowMessageForm.myClose(isConfirmButtonPressed: boolean = true);
+procedure TMessageForm.myClose(isConfirmButtonPressed: boolean = true);
 begin
   returnValue.isConfirmButtonPressed := isConfirmButtonPressed;
   returnValue.isCheckBoxChecked := checkBox.Checked;
